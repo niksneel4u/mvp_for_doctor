@@ -1,0 +1,55 @@
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name, required: true %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name, required: true %>
+  </div>
+  <div class="field">
+    <%= f.label :available_start_time %><br />
+    <%= f.time_select :available_start_time, required: true %><br />
+  </div>
+  <div class="field">
+    <%= f.label :available_end_time %><br />
+    <%= f.time_select :available_end_time, required: true %><br />
+  </div>
+  <br />
+  <% if User.doctor?(current_user) %>
+    <div class="field">
+      <%= f.label :specialist %>
+      <%= select_tag 'user[specialist]', options_for_select(Doctor::SPECIALIST_TYPE, current_user.specialist), prompt: 'Select your specialist', required: true %><br />
+      <br />
+    </div>
+  <% end %>
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+  <div class="field hide" >
+    <% f.label :password %> <br />
+    <% f.password_field :password, autocomplete: "new-password" %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><% @minimum_password_length %></em>
+    <% end %>
+  </div>
+  <div class="field hide">
+    <% f.label :password_confirmation %><br />
+    <% f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+  <div class="field hide">
+    <%= f.label :current_password %><br />
+    <%= f.password_field :current_password, autocomplete: "current-password" %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Update" %>
+  </div>
+<% end %>
+<br /><%= link_to "Back", doctors_index_path %><br /><br /><br />

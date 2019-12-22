@@ -1,0 +1,29 @@
+<h1>welcome <%= current_user.first_name %><br /></h1>
+<h2>your appointments</h2>
+<table id='customers'>
+  <tr>
+    <th>Doctors Name</th>
+    <th>date time</th>
+    <th>Specialist</th>
+    <th>Stutus</th>
+  </tr>
+  <% @appointments.each do |appointment| %>
+    <tr>
+      <td>
+        <%= appointment&.doctor.first_name %>
+      </td>
+      <td>
+        <%= appointment&.start_time.strftime(GlobalConstants::DATE_FORMATE) %> : 
+        <%= appointment&.start_time.strftime(GlobalConstants::TIME_FORMATE) %> -
+        <%= appointment&.end_time.strftime(GlobalConstants::TIME_FORMATE) %>
+      </td>
+      <td>
+        <%= appointment&.doctor.specialist %>
+      </td>
+      <td>
+        <%= status(appointment) %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to "Book Appointment", book_appointments_path %><br />

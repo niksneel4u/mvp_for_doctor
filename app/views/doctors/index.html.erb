@@ -1,0 +1,32 @@
+<h2>welcome <%= current_user.first_name %></h2> <br />
+<%= 'please complete profile your' if current_user.specialist.blank? %> <br /> 
+<%= link_to "Edit profile", edit_user_registration_path %><br />
+<h3>your appointments</h3>
+<table id='customers'>
+  <tr>
+    <th>Patients Name</th>
+    <th>date time</th>
+    <th>Specialist</th>
+  </tr>
+  <% @appointments.each do |appointment| %>
+    <tr>
+      <td>
+      <%= appointment&.patient.first_name %>
+      </td>
+      <td>
+        <%= appointment&.start_time.strftime(GlobalConstants::DATE_FORMATE) %> : 
+        <%= appointment&.start_time.strftime(GlobalConstants::TIME_FORMATE) %> -
+        <%= appointment&.end_time.strftime(GlobalConstants::TIME_FORMATE) %>
+      </td>
+      <td>
+      <% if appointment.status == 'pending' %>
+        <%= link_to 'accept', appointment_accept_path(appointment)  %>
+        <%= link_to 'reject', appointment_reject_path(appointment)  %>
+      <% else %>
+        <%= status(appointment) %>
+      <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+<br />

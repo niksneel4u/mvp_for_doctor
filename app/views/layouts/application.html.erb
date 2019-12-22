@@ -4,12 +4,20 @@
     <title>MvpForDoctor</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
+    <%- flash.each do |name, msg| -%>
+      <%= content_tag :div, msg, :id => "flash_#{name}" if msg.is_a?(String) %>
+    <%- end -%>
     <%= yield %>
+    <br />
+    <br />
+    <br />
+    <% if current_user.present?%>
+      <br />
+      <%= button_to "Sign out", destroy_user_session_path, method: 'delete' %><br />
+    <% end %>
   </body>
 </html>

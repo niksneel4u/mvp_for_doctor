@@ -1,0 +1,23 @@
+<%= render "devise/shared/error_messages", resource: @booking %>
+<%= form_for @booking, url: appointments_path do |f| %> 
+  <%= hidden_field_tag :doctor_id, doctor_id  %>
+  <div>
+    <%= f.label :date %><br>
+    <%= f.date_field :date, value: Date.today %><br />
+  </div>
+
+  <div>
+    <%= f.label :start_time %><br>
+    <%= f.time_select :start_time, value: Time.current %><br />
+  </div>
+   
+  <div>
+    <%= f.label :end_time %><br>
+    <%= f.time_select :end_time, value: Time.current %><br />
+  </div>
+  <p>
+    <%= f.submit %>
+  </p>
+<% end %>
+
+<br /><%= link_to "Back", book_appointments_path %><br /><br /><br />

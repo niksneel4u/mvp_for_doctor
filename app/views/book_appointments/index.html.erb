@@ -1,0 +1,27 @@
+<table id='customers'>
+  <tr>
+    <th>Doctors Name</th>
+    <th>Avalable Time</th>
+    <th>Specialist</th>
+    <th>Select Doctor</th>
+  </tr>
+  <% @doctors.each do |doctor| %>
+    <tr>
+      <td>
+        <%= doctor&.first_name %>
+      </td>
+      <td>
+        <%= doctor&.available_start_time.strftime(GlobalConstants::TIME_FORMATE) %> -
+        <%= doctor&.available_end_time.strftime(GlobalConstants::TIME_FORMATE) %>
+      </td>
+      <td>
+        <%= doctor&.specialist %>
+      </td>
+      <td>
+        <%= link_to "Book Appointment", appointment_booking_path(doctor.id) %><br />
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<br /><%= link_to "Back", patients_index_path %><br /><br /><br />
